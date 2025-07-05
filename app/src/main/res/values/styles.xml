@@ -4,19 +4,12 @@
     <style name="ActionBar.Title" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
     <style name="DarkTheme" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
-        <item name="colorPrimaryVariant">@color/primary_material_dark</item>
-        <item name="colorAccent">@android:color/holo_blue_dark</item>
-        <item name="colorPrimary">@android:color/holo_blue_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <style name="DarkTheme.NoTitle" parent="DarkTheme" />
 
     <style name="LightTheme" parent="Theme.Material3.Light.NoActionBar">
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
-        <item name="colorPrimaryVariant">@color/primary_material_light</item>
-        <item name="colorAccent">@android:color/holo_blue_bright</item>
-        <item name="colorPrimary">@android:color/holo_blue_bright</item>
     </style>
 
     <style name="LightTheme.NoTitle" parent="LightTheme" />
