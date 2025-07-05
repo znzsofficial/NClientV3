@@ -6,7 +6,7 @@ android:
      - platform-tools
      - tools
 
-     - build-tools-35.0.0
+     - build-tools-36.0.0
 
-     - android-35
+     - android-36
 

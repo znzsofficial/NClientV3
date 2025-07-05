@@ -1,0 +1,62 @@
+[versions]
+# 插件版本
+agp = "8.12.0-alpha07"
+kotlin = "2.2.0"
+autoService = "1.1.1"
+
+# AndroidX 库版本
+appcompat = "1.7.1"
+cardview = "1.0.0"
+constraintlayout = "2.2.1"
+fragment = "1.8.8"
+preference = "1.2.1"
+viewpager2 = "1.1.0"
+recyclerview = "1.4.0"
+material = "1.12.0"
+workRuntime = "2.10.2"
+multidex = "2.0.1"
+swipeRefreshLayout = "1.1.0"
+
+# 其他库版本
+acra = "5.12.0"
+ambilwarna = "2.0.1"
+fastscroll = "1.3.0"
+glide = "4.16.0"
+guava = "33.4.8-android"
+jsoup = "1.21.1"
+localeHelper = "1.5.1"
+okhttp = "5.0.0"
+persistentCookieJar = "1.0.1"
+
+[libraries]
+# AndroidX
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-cardview = { group = "androidx.cardview", name = "cardview", version.ref = "cardview" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-fragment = { group = "androidx.fragment", name = "fragment", version.ref = "fragment" }
+androidx-multidex = { group = "androidx.multidex", name = "multidex", version.ref = "multidex" }
+androidx-preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swipeRefreshLayout" }
+androidx-viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager2" }
+androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workRuntime" }
+google-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+
+# 其他库
+acra-core = { group = "ch.acra", name = "acra-core", version.ref = "acra" }
+ambilwarna = { group = "com.github.yukuku", name = "ambilwarna", version.ref = "ambilwarna" }
+fastscroll = { group = "me.zhanghai.android.fastscroll", name = "library", version.ref = "fastscroll" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
+google-auto-service = { group = "com.google.auto.service", name = "auto-service", version.ref = "autoService" }
+google-auto-service-annotations = { group = "com.google.auto.service", name = "auto-service-annotations", version.ref = "autoService" }
+google-guava = { group = "com.google.guava", name = "guava", version.ref = "guava" }
+jsoup = { group = "org.jsoup", name = "jsoup", version.ref = "jsoup" }
+locale-helper = { group = "com.zeugmasolutions.localehelper", name = "locale-helper-android", version.ref = "localeHelper" }
+okhttp-urlconnection = { group = "com.squareup.okhttp3", name = "okhttp-urlconnection", version.ref = "okhttp" }
+persistentcookiejar = { group = "com.github.franmontiel", name = "PersistentCookieJar", version.ref = "persistentCookieJar" }
+
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

@@ -1,5 +1,8 @@
 <resources>
 
+    <style name="Widget.Design.MultilineCollapsingToolbar" parent="@style/Widget.Design.CollapsingToolbar" />
+
+    <style name="ActionBar.Title" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
     <style name="DarkTheme" parent="Theme.MaterialComponents.NoActionBar">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
