@@ -39,3 +39,19 @@
 }
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -dontwarn com.bumptech.glide.load.resource.bitmap.VideoDecoder
+
+# Suppress warnings about missing classes from annotation processing and code generation tools,
+# as they are only used at compile time and are not needed at runtime.
+
+-dontwarn com.squareup.javapoet.**
+-dontwarn javax.lang.model.**
+-dontwarn javax.annotation.processing.**
+-dontwarn javax.tools.**
+
+# The 'auto-common' and 'auto-service' libraries also reference Guava classes,
+# which might not be in the final runtime if you don't use Guava directly.
+# It's safe to suppress these warnings as well for annotation processors.
+-dontwarn com.google.common.base.**
+-dontwarn com.google.common.collect.**
+-dontwarn com.google.common.util.**
+-dontwarn org.checkerframework.checker.nullness.**

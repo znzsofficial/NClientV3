@@ -6,10 +6,13 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.content.pm.SigningInfo;
+import android.os.Build;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDexApplication;
 
+import com.google.android.material.color.DynamicColors;
 import com.maxwai.nclientv3.BuildConfig;
 import com.maxwai.nclientv3.R;
 import com.maxwai.nclientv3.async.ScrapeTags;
@@ -28,6 +31,8 @@ import org.acra.config.CoreConfigurationBuilder;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import kotlin.Suppress;
 
 
 public class CrashApplication extends MultiDexApplication {
@@ -50,27 +55,78 @@ public class CrashApplication extends MultiDexApplication {
         TagV2.initMinCount(this);
         TagV2.initSortByName(this);
         DownloadGalleryV2.loadDownloads(this);
+        DynamicColors.applyToActivitiesIfAvailable(this);
     }
 
+    @SuppressWarnings("deprecation")
     private boolean signatureCheck() {
         try {
-            @SuppressLint("PackageManagerGetSignatures")
-            PackageInfo packageInfo = getPackageManager().getPackageInfo(
-                getPackageName(), PackageManager.GET_SIGNATURES);
-            //note sample just checks the first signature
+            final String packageName = getPackageName();
+            final PackageInfo packageInfo;
 
-            for (Signature signature : packageInfo.signatures) {
-                // MD5 is used because it is not a secure data
-                MessageDigest m = MessageDigest.getInstance("MD5");
-                m.update(signature.toByteArray());
-                String hash = new BigInteger(1, m.digest()).toString(16);
-                LogUtility.d("Find signature: " + hash);
-                if (SIGNATURE_GITHUB.equals(hash)) return true;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                // 新方案 (Android P / API 28 及以上)
+                packageInfo = getPackageManager().getPackageInfo(
+                    packageName, PackageManager.GET_SIGNING_CERTIFICATES);
+
+                SigningInfo signingInfo = packageInfo.signingInfo;
+                if (signingInfo == null) {
+                    return false;
+                }
+
+                // hasMultipleSigners() 检查 APK 是否由多个签名者签名。
+                // getApkContentsSigners() 获取用于签署 APK 的实际签名。
+                // 如果你支持密钥轮换，可能需要检查 getSigningCertificateHistory()。
+                // 对于简单的检查，getApkContentsSigners() 是最合适的。
+                if (signingInfo.hasMultipleSigners()) {
+                    for (Signature signature : signingInfo.getApkContentsSigners()) {
+                        if (isSignatureValid(signature)) return true;
+                    }
+                } else {
+                    for (Signature signature : signingInfo.getSigningCertificateHistory()) {
+                        if (isSignatureValid(signature)) return true;
+                    }
+                }
+
+            } else {
+                // 旧方案 (Android P / API 28 以下)
+                packageInfo = getPackageManager().getPackageInfo(
+                    packageName, PackageManager.GET_SIGNATURES);
+
+                if (packageInfo == null || packageInfo.signatures == null || packageInfo.signatures.length == 0) {
+                    return false;
+                }
+
+                for (Signature signature : packageInfo.signatures) {
+                    if (isSignatureValid(signature)) return true;
+                }
             }
-        } catch (NullPointerException | PackageManager.NameNotFoundException | NoSuchAlgorithmException e) {
+        } catch (PackageManager.NameNotFoundException e) {
+            // 包名未找到，这在正常情况下不应发生。
             e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * 辅助方法，用于检查单个签名的哈希值。
+     *
+     * @param signature 签名对象
+     * @return 如果签名匹配，则为 true
+     */
+    private boolean isSignatureValid(Signature signature) {
+        try {
+            MessageDigest m = MessageDigest.getInstance("MD5");
+            m.update(signature.toByteArray());
+            String hash = new BigInteger(1, m.digest()).toString(16);
+            LogUtility.d("Find signature: " + hash);
+            // SIGNATURE_GITHUB 是你预定义的常量
+            return SIGNATURE_GITHUB.equals(hash);
+        } catch (NoSuchAlgorithmException e) {
+            // MD5 算法几乎总是可用的。
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private void afterUpdateChecks(SharedPreferences preferences, String oldVersion) {

@@ -1,10 +1,9 @@
 <resources>
-
     <style name="Widget.Design.MultilineCollapsingToolbar" parent="@style/Widget.Design.CollapsingToolbar" />
 
     <style name="ActionBar.Title" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
-    <style name="DarkTheme" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="DarkTheme" parent="Theme.Material3.Dark.NoActionBar">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
         <item name="colorPrimaryVariant">@color/primary_material_dark</item>
         <item name="colorAccent">@android:color/holo_blue_dark</item>
@@ -13,7 +12,7 @@
 
     <style name="DarkTheme.NoTitle" parent="DarkTheme" />
 
-    <style name="LightTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="LightTheme" parent="Theme.Material3.Light.NoActionBar">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
         <item name="colorPrimaryVariant">@color/primary_material_light</item>
         <item name="colorAccent">@android:color/holo_blue_bright</item>

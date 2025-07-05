@@ -42,7 +42,7 @@
             android:text="@string/random" />
     </com.google.android.material.chip.ChipGroup>
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
+    <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@+id/ascending"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
