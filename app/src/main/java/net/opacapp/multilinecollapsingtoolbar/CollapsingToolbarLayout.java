@@ -1240,7 +1240,6 @@ public class CollapsingToolbarLayout extends FrameLayout {
             super(source);
         }
 
-        @RequiresApi(19)
         public LayoutParams(FrameLayout.LayoutParams source) {
             // The copy constructor called here only exists on API 19+.
             super(source);

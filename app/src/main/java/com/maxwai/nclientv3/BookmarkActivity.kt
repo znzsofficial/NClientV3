@@ -1,42 +1,38 @@
-package com.maxwai.nclientv3;
+package com.maxwai.nclientv3
 
-import android.os.Bundle;
-import android.view.MenuItem;
+import android.os.Bundle
+import android.view.MenuItem
+import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.RecyclerView
+import com.maxwai.nclientv3.adapters.BookmarkAdapter
+import com.maxwai.nclientv3.components.activities.GeneralActivity
+import com.maxwai.nclientv3.components.widgets.CustomLinearLayoutManager
 
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.maxwai.nclientv3.adapters.BookmarkAdapter;
-import com.maxwai.nclientv3.components.activities.GeneralActivity;
-import com.maxwai.nclientv3.components.widgets.CustomLinearLayoutManager;
-
-public class BookmarkActivity extends GeneralActivity {
-    BookmarkAdapter adapter;
-    RecyclerView recycler;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+class BookmarkActivity : GeneralActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         //Global.initActivity(this);
-        setContentView(R.layout.activity_bookmark);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle(R.string.manage_bookmarks);
+        setContentView(R.layout.activity_bookmark)
+        val toolbar = findViewById<Toolbar?>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowTitleEnabled(true)
+            setTitle(R.string.manage_bookmarks)
+        }
 
-        recycler = findViewById(R.id.recycler);
-        adapter = new BookmarkAdapter(this);
-        recycler.setLayoutManager(new CustomLinearLayoutManager(this));
-        recycler.setAdapter(adapter);
+        findViewById<RecyclerView>(R.id.recycler).let {
+            it.setLayoutManager(CustomLinearLayoutManager(this))
+            it.setAdapter(BookmarkAdapter(this))
+        }
+
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+            return true
         }
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item)
     }
 }
