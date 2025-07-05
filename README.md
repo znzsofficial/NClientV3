@@ -1,51 +1,22 @@
-# NClientV3
+# NClientV3: A Modern Reimagining
 
-[![Github](https://img.shields.io/github/v/release/maxwai/NClientV3.svg?logo=github)](https://github.com/maxwai/NClientV3/releases/latest)
+[![GitHub Release](https://img.shields.io/github/v/release/maxwai/NClientV3.svg?logo=github&style=for-the-badge)](https://github.com/maxwai/NClientV3/releases/latest)
+[![License](https://img.shields.io/github/license/maxwai/NClientV3?style=for-the-badge)](https://github.com/maxwai/NClientV3/blob/master/LICENSE)
 
-An unofficial NHentai Android Client. This is a fork of the original Project by [@Dar9586](https://github.com/Dar9586) found [here](https://github.com/Dar9586/NClientV2)
+An unofficial NHentai Android client, rebuilt with a focus on modern Android development practices. This project is a fork of the original NClientV2 by [@Dar9586](https://github.com/Dar9586).
 
-This app works for devices from API 26 (Android 8) and above.
+This new version is being actively migrated to be **Kotlin-first** and features a clean, intuitive user interface based on **Material Design 3 (Material You)**.
 
-For Devices Running Android 8 (SDK 26 and 27) there is a separate SDK with `pre28` in the name. Support for this Version of the app will be reduced.
+## ✨ Features
 
-Releases: <https://github.com/maxwai/NClientV3/releases>
-
-## Migrate from original NClientV2 to NClientV3
-
-Unfortunately, due to Android security features, it is not possible to create an APK that will update the original App since the same signature will not be possible. For that reason a migration is necessary.
-
-1. If not already done, move your download folder to outside the protected folders in `Settings -> Folder location`
-   1. There are a lot of tutorials online on how to access `/storage/emulated/0/Android/data`. For example here from [medium.com](https://medium.com/@naira-nicol/how-to-access-android-data-folder-c0227e0a42ef)
-   2. Be sure to not move it to `/storage/emulated/0/Android/data` but to a folder that your normal file app can see it. (Notice: `/storage/emulated/0/nclient` would work for example for a new path)
-2. Rename the subfolder in the path you set from `NClientV2` to `NClientV3`
-3. Export your data in `Settings -> Export data`
-   1. IMPORTANT: wait for the pop up message saying `Export finished`
-4. Open NClientV3
-5. Set the download folder in `Settings -> Folder location` to the same path as in NClientV2
-6. Import your data in `Settings -> Import data`, choose the zip file you created in Step 3
-   1. IMPORTANT: wait for the pop up message saying `Import finished`
-
-## Translate App
-
-You can help translate the Project by going to the Crowdin Project [here](https://crowdin.com/project/nclientv3/invite?h=33e3f83681ebaea1bf037ed157d2ea272410538).
-
-If your desired language is missing, write an issue, the language will be added.
-
-## API Features
-
-- Browse main page
-- Search by query or tags
-- Include or exclude tags
-- Blur or hide excluded tags
-- Download manga
-- Favorite galleries
-- Enable PIN to access the app
-
-## Custom feature
-
-- Share galleries
-- Open in browser
-- Bookmark
+*   **Modern, Intuitive UI:** A completely redesigned interface using Material Design 3.
+*   **Dynamic Color:** The app's theme automatically adapts to your wallpaper on Android 12+.
+*   **Browse & Search:** Explore the main page, search by query, and filter by tags.
+*   **Tag Management:** Include or exclude tags to customize your browsing experience. Blur or hide content based on excluded tags.
+*   **Downloads:** Download your favorite galleries for offline access.
+*   **Favorites & Bookmarks:** Keep track of galleries you love.
+*   **Security:** Protect access to the app with a PIN.
+*   **Convenience:** Easily share galleries or open them directly in your browser.
 
 ## App Screen
 
@@ -55,43 +26,43 @@ If your desired language is missing, write an issue, the language will be added.
 |                                                                  Search                                                                  |                                                                Random manga                                                                 |
 |  ![Search](https://raw.githubusercontent.com/maxwai/NClientV3/master/fastlane/metadata/android/en-US/images/phoneScreenshots/img3.jpg)   | ![Random manga](https://raw.githubusercontent.com/maxwai/NClientV3/master/fastlane/metadata/android/en-US/images/phoneScreenshots/img4.jpg) |
 
-## Contributors
+## ❤️ Contributing
 
-- [shirokun20](https://github.com/shirokun20) for the initial Bug fixes
-- [w0x8m](https://github.com/w0x8m) for the new language picker & Chinese Simplified translation
-- [ananas7](https://github.com/ananas7) for Arabic translation
-- [raymi7066](https://github.com/raymi7066) for Chinese Simplified translation
+We welcome contributions of all kinds! Whether it's reporting a bug, proposing a new feature, or improving the code, your input is valuable.
 
-## Contributors of original Project
+### Translations
 
-- [Still34](https://github.com/Still34) for code cleanup & Traditional Chinese translation
-- [TacoTheDank](https://github.com/TacoTheDank) for XML and gradle cleanup
-- [hmaltr](https://github.com/hmaltr) for Turkish translation and issue moderation
-- [ZerOri](https://github.com/ZerOri) and [linsui](https://github.com/linsui) for Chinese translation
-- [herrsunchess](https://github.com/herrsunchess) for German translation
-- [eme22](https://github.com/herrsunchess) for Spanish translation
-- [velosipedistufa](https://github.com/velosipedistufa) for Russian translation
-- [bottomtextboy](https://github.com/bottomtextboy) for Arabic translation
-- [MaticBabnik](https://github.com/MaticBabnik) for bug fixes
-- [DontPayAttention](https://github.com/DontPayAttention) for French translation
-- [kuragehimekurara1](https://github.com/kuragehimekurara1) for Japanese translation
-- [chayleaf](https://github.com/chayleaf) for Cloudflare bypass
-- [Atmosphelen](https://github.com/Atmosphelen) for Ukrainian translation
+You can help translate the project on Crowdin. If your language is missing, please open an issue, and we will add it.
 
-## Libraries
+## 🙏 Acknowledgements
 
-- PersistentCookieJar ([License](https://github.com/franmontiel/PersistentCookieJar/blob/master/LICENSE.txt))
-- OKHttp ([License](https://github.com/square/okhttp/blob/master/LICENSE.txt))
-- multiline-collapsingtoolbar ([License](https://github.com/opacapp/multiline-collapsingtoolbar/blob/master/LICENSE))
-- PhotoView ([License](https://github.com/chrisbanes/PhotoView/blob/master/LICENSE))
-- JSoup ([License](https://github.com/jhy/jsoup/blob/master/LICENSE))
-- ACRA ([License](https://github.com/ACRA/acra/blob/master/LICENSE))
-- Glide ([License](https://github.com/bumptech/glide/blob/master/LICENSE))
+### Contributors to NClientV3
+*   [shirokun20](https://github.com/shirokun20) for the initial Bug fixes
+*   [w0x8m](https://github.com/w0x8m) for the new language picker & Chinese Simplified translation
+*   [ananas7](https://github.com/ananas7) for Arabic translation
+*   [raymi7066](https://github.com/raymi7066) for Chinese Simplified translation
 
-## License
+### Contributors to the Original Project
+*   [Still34](https://github.com/Still34) for code cleanup & Traditional Chinese translation
+*   [TacoTheDank](https://github.com/TacoTheDank) for XML and gradle cleanup
+*   [hmaltr](https://github.com/hmaltr) for Turkish translation and issue moderation
+*   [ZerOri](https://github.com/ZerOri) and [linsui](https://github.com/linsui) for Chinese translation
+*   [herrsunchess](https://github.com/herrsunchess) for German translation
+*   [eme22](https://github.com/herrsunchess) for Spanish translation
+*   [velosipedistufa](https://github.com/velosipedistufa) for Russian translation
+*   [bottomtextboy](https://github.com/bottomtextboy) for Arabic translation
+*   [MaticBabnik](https://github.com/MaticBabnik) for bug fixes
+*   [DontPayAttention](https://github.com/DontPayAttention) for French translation
+*   [kuragehimekurara1](https://github.com/kuragehimekurara1) for Japanese translation
+*   [chayleaf](https://github.com/chayleaf) for Cloudflare bypass
+*   [Atmosphelen](https://github.com/Atmosphelen) for Ukrainian translation
+
+## 📄 License
 
 ```text
    Copyright 2024 maxwai
+   Copyright 2025 NekoLaska
+
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
