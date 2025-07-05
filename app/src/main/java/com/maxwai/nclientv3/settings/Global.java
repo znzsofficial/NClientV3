@@ -343,13 +343,10 @@ public class Global {
     }
 
     public static DataUsageType getDownloadPolicy() {
-        switch (NetworkUtil.getType()) {
-            case WIFI:
-                return usageWifi;
-            case CELLULAR:
-                return usageMobile;
-        }
-        return usageWifi;
+        return switch (NetworkUtil.getType()) {
+            case WIFI -> usageWifi;
+            case CELLULAR -> usageMobile;
+        };
     }
 
     public static boolean volumeOverride() {
@@ -738,17 +735,13 @@ public class Global {
 
     @NonNull
     public static String getLanguageFlag(Language language) {
-        switch (language) {
-            case CHINESE:
-                return "\uD83C\uDDE8\uD83C\uDDF3";
-            case ENGLISH:
-                return "\uD83C\uDDEC\uD83C\uDDE7";
-            case JAPANESE:
-                return "\uD83C\uDDEF\uD83C\uDDF5";
-            case UNKNOWN:
-                return "\uD83C\uDFF3";
-        }
-        return "";
+        return switch (language) {
+            case CHINESE -> "\uD83C\uDDE8\uD83C\uDDF3";
+            case ENGLISH -> "\uD83C\uDDEC\uD83C\uDDE7";
+            case JAPANESE -> "\uD83C\uDDEF\uD83C\uDDF5";
+            case UNKNOWN -> "\uD83C\uDFF3";
+            default -> "";
+        };
     }
 
     public enum ThemeScheme {LIGHT, DARK}

@@ -86,29 +86,17 @@ public class Page implements Parcelable {
     }
 
     public static ImageExt stringToExt(String ext) {
-        switch (ext.toLowerCase()) {
-            case "gif":
-            case "g":
-                return ImageExt.GIF;
-            case "png":
-            case "p":
-                return ImageExt.PNG;
-            case "jpg":
-            case "j":
-                return ImageExt.JPG;
-            case "webp":
-            case "w":
-                return ImageExt.WEBP;
-            case "gif.webp":
-                return ImageExt.GIF_WEBP;
-            case "png.webp":
-                return ImageExt.PNG_WEBP;
-            case "jpg.webp":
-                return ImageExt.JPG_WEBP;
-            case "webp.webp":
-                return ImageExt.WEBP_WEBP;
-        }
-        return null;
+        return switch (ext.toLowerCase()) {
+            case "gif", "g" -> ImageExt.GIF;
+            case "png", "p" -> ImageExt.PNG;
+            case "jpg", "j" -> ImageExt.JPG;
+            case "webp", "w" -> ImageExt.WEBP;
+            case "gif.webp" -> ImageExt.GIF_WEBP;
+            case "png.webp" -> ImageExt.PNG_WEBP;
+            case "jpg.webp" -> ImageExt.JPG_WEBP;
+            case "webp.webp" -> ImageExt.WEBP_WEBP;
+            default -> null;
+        };
     }
 
     public String extToString() {

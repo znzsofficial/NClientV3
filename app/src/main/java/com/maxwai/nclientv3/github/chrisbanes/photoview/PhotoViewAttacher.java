@@ -642,17 +642,11 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         float deltaX = 0, deltaY = 0;
         final int viewHeight = getImageViewHeight(mImageView);
         if (height <= viewHeight) {
-            switch (mScaleType) {
-                case FIT_START:
-                    deltaY = -rect.top;
-                    break;
-                case FIT_END:
-                    deltaY = viewHeight - height - rect.top;
-                    break;
-                default:
-                    deltaY = (viewHeight - height) / 2 - rect.top;
-                    break;
-            }
+            deltaY = switch (mScaleType) {
+                case FIT_START -> -rect.top;
+                case FIT_END -> viewHeight - height - rect.top;
+                default -> (viewHeight - height) / 2 - rect.top;
+            };
             mVerticalScrollEdge = VERTICAL_EDGE_BOTH;
         } else if (rect.top > 0) {
             mVerticalScrollEdge = VERTICAL_EDGE_TOP;
@@ -665,17 +659,11 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         }
         final int viewWidth = getImageViewWidth(mImageView);
         if (width <= viewWidth) {
-            switch (mScaleType) {
-                case FIT_START:
-                    deltaX = -rect.left;
-                    break;
-                case FIT_END:
-                    deltaX = viewWidth - width - rect.left;
-                    break;
-                default:
-                    deltaX = (viewWidth - width) / 2 - rect.left;
-                    break;
-            }
+            deltaX = switch (mScaleType) {
+                case FIT_START -> -rect.left;
+                case FIT_END -> viewWidth - width - rect.left;
+                default -> (viewWidth - width) / 2 - rect.left;
+            };
             mHorizontalScrollEdge = HORIZONTAL_EDGE_BOTH;
         } else if (rect.left > 0) {
             mHorizontalScrollEdge = HORIZONTAL_EDGE_LEFT;

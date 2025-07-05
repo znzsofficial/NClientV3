@@ -73,30 +73,16 @@ public class TagFilterActivity extends GeneralActivity {
 
 
         new TabLayoutMediator(tabLayout, mViewPager, (tab, position) -> {
-            int id = 0;
-            switch (position) {
-                case 0:
-                    id = R.string.applied_filters;
-                    break;
-                case 1:
-                    id = R.string.tags;
-                    break;
-                case 2:
-                    id = R.string.artists;
-                    break;
-                case 3:
-                    id = R.string.characters;
-                    break;
-                case 4:
-                    id = R.string.parodies;
-                    break;
-                case 5:
-                    id = R.string.groups;
-                    break;
-                case 6:
-                    id = R.string.online_tags;
-                    break;
-            }
+            int id = switch (position) {
+                case 0 -> R.string.applied_filters;
+                case 1 -> R.string.tags;
+                case 2 -> R.string.artists;
+                case 3 -> R.string.characters;
+                case 4 -> R.string.parodies;
+                case 5 -> R.string.groups;
+                case 6 -> R.string.online_tags;
+                default -> 0;
+            };
             tab.setText(id);
         }).attach();
         mViewPager.setCurrentItem(getPage());

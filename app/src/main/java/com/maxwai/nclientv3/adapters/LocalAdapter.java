@@ -194,16 +194,13 @@ public class LocalAdapter extends MultichoiceAdapter<Object, LocalAdapter.ViewHo
     }
 
     private Comparator<Object> getComparator(LocalSortType.Type type) {
-        switch (type) {
-            case DATE:
-                return comparatorByDate;
-            case TITLE:
-                return comparatorByName;
-            case PAGE_COUNT:
-                return comparatorByPageCount;
+        return switch (type) {
+            case DATE -> comparatorByDate;
+            case TITLE -> comparatorByName;
+            case PAGE_COUNT -> comparatorByPageCount;
             //case SIZE:return comparatorBySize;
-        }
-        return comparatorByName;
+            default -> comparatorByName;
+        };
     }
 
     public void setColCount(int colCount) {
@@ -217,15 +214,12 @@ public class LocalAdapter extends MultichoiceAdapter<Object, LocalAdapter.ViewHo
     @NonNull
     @Override
     protected ViewHolder onCreateMultichoiceViewHolder(@NonNull ViewGroup parent, int viewType) {
-        int id = 0;
-        switch (viewType) {
-            case 0:
-                id = colCount == 1 ? R.layout.entry_layout_single : R.layout.entry_layout;
-                break;
-            case 1:
-                id = colCount == 1 ? R.layout.entry_download_layout : R.layout.entry_download_layout_compact;
-                break;
-        }
+        int id = switch (viewType) {
+            case 0 -> colCount == 1 ? R.layout.entry_layout_single : R.layout.entry_layout;
+            case 1 ->
+                colCount == 1 ? R.layout.entry_download_layout : R.layout.entry_download_layout_compact;
+            default -> 0;
+        };
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(id, parent, false));
     }
 
@@ -267,8 +261,7 @@ public class LocalAdapter extends MultichoiceAdapter<Object, LocalAdapter.ViewHo
         statuses.put(id, Queries.StatusMangaTable.getStatus(id).color);
         for (int i = 0; i < filter.size(); i++) {
             Object o = filter.get(i);
-            if (!(o instanceof LocalGallery)) continue;
-            LocalGallery lg = (LocalGallery) o;
+            if (!(o instanceof LocalGallery lg)) continue;
             if (lg.getId() == id) notifyItemChanged(i);
         }
     }
@@ -276,8 +269,7 @@ public class LocalAdapter extends MultichoiceAdapter<Object, LocalAdapter.ViewHo
     @Override
     protected void defaultMasterAction(int position) {
         if (position < 0 || filter.size() <= position) return;
-        if (!(filter.get(position) instanceof LocalGallery)) return;
-        LocalGallery lg = (LocalGallery) filter.get(position);
+        if (!(filter.get(position) instanceof LocalGallery lg)) return;
         startGallery(context, lg.getDirectory());
         context.setIdGalleryPosition(lg.getId());
     }
@@ -447,8 +439,7 @@ public class LocalAdapter extends MultichoiceAdapter<Object, LocalAdapter.ViewHo
 
     public void startSelected() {
         for (Object o : getSelected()) {
-            if (!(o instanceof GalleryDownloaderV2)) continue;
-            GalleryDownloaderV2 d = (GalleryDownloaderV2) o;
+            if (!(o instanceof GalleryDownloaderV2 d)) continue;
             if (d.getStatus() == GalleryDownloaderV2.Status.PAUSED)
                 d.setStatus(GalleryDownloaderV2.Status.NOT_STARTED);
         }
@@ -457,8 +448,7 @@ public class LocalAdapter extends MultichoiceAdapter<Object, LocalAdapter.ViewHo
 
     public void pauseSelected() {
         for (Object o : getSelected()) {
-            if (!(o instanceof GalleryDownloaderV2)) continue;
-            GalleryDownloaderV2 d = (GalleryDownloaderV2) o;
+            if (!(o instanceof GalleryDownloaderV2 d)) continue;
             d.setStatus(GalleryDownloaderV2.Status.PAUSED);
         }
         context.runOnUiThread(this::notifyDataSetChanged);

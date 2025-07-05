@@ -358,7 +358,7 @@ final class CollapsingTextHelper {
     /**
      * Set the value indicating the current scroll value. This decides how much of the
      * background will be displayed, as well as the title metrics/positioning.
-     *
+     * <p>
      * A value of {@code 0.0} indicates that the layout is fully expanded.
      * A value of {@code 1.0} indicates that the layout is fully collapsed.
      */
@@ -371,7 +371,7 @@ final class CollapsingTextHelper {
         }
     }
 
-    final boolean setState(final int[] state) {
+    boolean setState(final int[] state) {
         mState = state;
 
         if (isStateful()) {
@@ -382,7 +382,7 @@ final class CollapsingTextHelper {
         return false;
     }
 
-    final boolean isStateful() {
+    boolean isStateful() {
         return (mCollapsedTextColor != null && mCollapsedTextColor.isStateful()) ||
                 (mExpandedTextColor != null && mExpandedTextColor.isStateful());
     }
@@ -620,12 +620,12 @@ final class CollapsingTextHelper {
                 // BEGIN MODIFICATION
                 // Remove ellipsis for Cross-section animation
                 String tmp = mTextToDrawCollapsed.toString().trim();
-                if (tmp.endsWith("\u2026")) {
+                if (tmp.endsWith("…")) {
                     tmp = tmp.substring(0, tmp.length() - 1);
                 }
                 // Cross-section between both texts (should stay at alpha = 255)
                 mTextPaint.setAlpha(255);
-                canvas.drawText(tmp, 0, mTextLayout.getLineEnd(0) <= tmp.length() ? mTextLayout.getLineEnd(0) : tmp.length(), 0, -ascent / mScale, mTextPaint);
+                canvas.drawText(tmp, 0, Math.min(mTextLayout.getLineEnd(0), tmp.length()), 0, -ascent / mScale, mTextPaint);
                 // END MODIFICATION
             }
             // END MODIFICATION
@@ -756,7 +756,7 @@ final class CollapsingTextHelper {
                     lineText = lineText.subSequence(0, lineText.length() - 1);
                 }
                 // insert ellipsis character
-                lineText = TextUtils.concat(lineText, "\u2026", lineEnd);
+                lineText = TextUtils.concat(lineText, "…", lineEnd);
                 // if the text is too long, truncate it
                 CharSequence truncatedLineText = TextUtils.ellipsize(lineText, mTextPaint,
                         availableWidth, TextUtils.TruncateAt.END);
@@ -770,23 +770,13 @@ final class CollapsingTextHelper {
                 mIsRtl = calculateIsRtl(mTextToDraw);
             }
 
-            final Layout.Alignment alignment;
+            final Layout.Alignment alignment = switch (mExpandedTextGravity & GravityCompat.RELATIVE_HORIZONTAL_GRAVITY_MASK) {
+                case Gravity.CENTER_HORIZONTAL -> Layout.Alignment.ALIGN_CENTER;
+                case Gravity.RIGHT, Gravity.END -> Layout.Alignment.ALIGN_OPPOSITE;
+                default -> Layout.Alignment.ALIGN_NORMAL;
+            };
 
             // Don't rectify gravity for RTL languages, Layout.Alignment does it already.
-            switch (mExpandedTextGravity & GravityCompat.RELATIVE_HORIZONTAL_GRAVITY_MASK) {
-                case Gravity.CENTER_HORIZONTAL:
-                    alignment = Layout.Alignment.ALIGN_CENTER;
-                    break;
-                case Gravity.RIGHT:
-                case Gravity.END:
-                    alignment = Layout.Alignment.ALIGN_OPPOSITE;
-                    break;
-                case Gravity.LEFT:
-                case Gravity.START:
-                default:
-                    alignment = Layout.Alignment.ALIGN_NORMAL;
-                    break;
-            }
 
             mTextLayout = new StaticLayout(mTextToDraw, mTextPaint, (int) availableWidth,
                 alignment, lineSpacingMultiplier, lineSpacingExtra, false);
@@ -859,11 +849,11 @@ final class CollapsingTextHelper {
         mCrossSectionTitleTexture = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(mCrossSectionTitleTexture);
         String tmp = mTextToDrawCollapsed.toString().trim();
-        if (tmp.endsWith("\u2026")) {
+        if (tmp.endsWith("…")) {
             tmp = tmp.substring(0, tmp.length() - 1);
         }
         c.drawText(tmp, 0,
-                mTextLayout.getLineEnd(0) <= tmp.length() ? mTextLayout.getLineEnd(0) : tmp.length(), 0, -mTextPaint.ascent() / mScale, mTextPaint);
+            Math.min(mTextLayout.getLineEnd(0), tmp.length()), 0, -mTextPaint.ascent() / mScale, mTextPaint);
         if (mTexturePaint == null) {
             // Make sure we have a paint
             mTexturePaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);

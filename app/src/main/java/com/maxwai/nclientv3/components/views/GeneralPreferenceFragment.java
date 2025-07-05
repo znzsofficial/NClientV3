@@ -83,15 +83,12 @@ public class GeneralPreferenceFragment extends PreferenceFragmentCompat {
     }
 
     private int getDataUsageString(int val) {
-        switch (val) {
-            case 0:
-                return R.string.data_usage_no;
-            case 1:
-                return R.string.data_usage_thumb;
-            case 2:
-                return R.string.data_usage_full;
-        }
-        return R.string.data_usage_full;
+        return switch (val) {
+            case 0 -> R.string.data_usage_no;
+            case 1 -> R.string.data_usage_thumb;
+            case 2 -> R.string.data_usage_full;
+            default -> R.string.data_usage_full;
+        };
     }
 
     private void fillRoba() {

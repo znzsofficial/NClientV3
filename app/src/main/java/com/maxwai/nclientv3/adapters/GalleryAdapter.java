@@ -113,28 +113,15 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     @NonNull
     @Override
     public GalleryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        int id = 0;
-        switch (Type.values()[viewType]) {
-            case TAG:
-                id = R.layout.tags_layout;
-                break;
-            case PAGE:
-                switch (policy) {
-                    case MAX:
-                        id = R.layout.image_void;
-                        break;
-                    case FULL:
-                        id = R.layout.image_void_full;
-                        break;
-                    case PROPORTION:
-                        id = R.layout.image_void_static;
-                        break;
-                }
-                break;
-            case RELATED:
-                id = R.layout.related_recycler;
-                break;
-        }
+        int id = switch (Type.values()[viewType]) {
+            case TAG -> R.layout.tags_layout;
+            case PAGE -> switch (policy) {
+                case MAX -> R.layout.image_void;
+                case FULL -> R.layout.image_void_full;
+                case PROPORTION -> R.layout.image_void_static;
+            };
+            case RELATED -> R.layout.related_recycler;
+        };
         return new GalleryAdapter.ViewHolder(LayoutInflater.from(parent.getContext()).inflate(id, parent, false), Type.values()[viewType]);
     }
 

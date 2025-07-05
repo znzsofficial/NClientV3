@@ -30,23 +30,16 @@ public class TagTypePage extends Fragment {
     }
 
     private static int getTag(int page) {
-        switch (page) {
-            case 0:
-                return TagType.UNKNOWN.getId();//tags with status
-            case 1:
-                return TagType.TAG.getId();
-            case 2:
-                return TagType.ARTIST.getId();
-            case 3:
-                return TagType.CHARACTER.getId();
-            case 4:
-                return TagType.PARODY.getId();
-            case 5:
-                return TagType.GROUP.getId();
-            case 6:
-                return TagType.CATEGORY.getId();//online blacklisted tags
-        }
-        return -1;
+        return switch (page) {
+            case 0 -> TagType.UNKNOWN.getId();//tags with status
+            case 1 -> TagType.TAG.getId();
+            case 2 -> TagType.ARTIST.getId();
+            case 3 -> TagType.CHARACTER.getId();
+            case 4 -> TagType.PARODY.getId();
+            case 5 -> TagType.GROUP.getId();
+            case 6 -> TagType.CATEGORY.getId();//online blacklisted tags
+            default -> -1;
+        };
     }
 
     public static TagTypePage newInstance(int page) {

@@ -129,15 +129,11 @@ public class Tag implements Parcelable {
     }
 
     public TagStatus updateStatus() {
-        switch (status) {
-            case AVOIDED:
-                return status = TagStatus.DEFAULT;
-            case DEFAULT:
-                return status = TagStatus.ACCEPTED;
-            case ACCEPTED:
-                return status = TagStatus.AVOIDED;
-        }
-        return null;
+        return switch (status) {
+            case AVOIDED -> status = TagStatus.DEFAULT;
+            case DEFAULT -> status = TagStatus.ACCEPTED;
+            case ACCEPTED -> status = TagStatus.AVOIDED;
+        };
     }
 
     void writeJson(JsonWriter writer) throws IOException {

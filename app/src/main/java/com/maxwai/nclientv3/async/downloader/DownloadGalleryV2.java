@@ -26,8 +26,7 @@ public class DownloadGalleryV2 extends JobIntentService {
         if (gallery.isValid() && gallery instanceof Gallery)
             downloadGallery(context, (Gallery) gallery);
         if (gallery.getId() > 0) {
-            if (gallery instanceof SimpleGallery) {
-                SimpleGallery simple = (SimpleGallery) gallery;
+            if (gallery instanceof SimpleGallery simple) {
                 downloadGallery(context, gallery.getTitle(), simple.getThumbnail(), simple.getId());
             } else downloadGallery(context, null, null, gallery.getId());
         }
@@ -80,7 +79,7 @@ public class DownloadGalleryV2 extends JobIntentService {
         if (intent != null) {
             int id = intent.getIntExtra(getPackageName() + ".ID", -1);
             String mode = intent.getStringExtra(getPackageName() + ".MODE");
-            LogUtility.d("" + mode);
+            LogUtility.d(mode);
             GalleryDownloaderManager manager = DownloadQueue.managerFromId(id);
             if (manager != null) {
                 LogUtility.d("IntentAction: " + mode + " for id " + id);

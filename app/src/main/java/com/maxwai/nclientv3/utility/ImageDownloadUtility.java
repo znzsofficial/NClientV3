@@ -86,7 +86,7 @@ public class ImageDownloadUtility {
             if (angle != 0)
                 dra = dra.transform(new Rotate(angle));
             dra.error(logo)
-                .addListener(new RequestListener<Drawable>() {
+                .addListener(new RequestListener<>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, @Nullable Object model, @NonNull Target<Drawable> target, boolean isFirstResource) {
                         new Handler(context.getMainLooper()).post(errorRunnable);

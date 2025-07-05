@@ -790,15 +790,11 @@ public class Queries {
 
 
         static String titleTypeToColumn(TitleType type) {
-            switch (type) {
-                case PRETTY:
-                    return GalleryTable.TITLE_PRETTY;
-                case ENGLISH:
-                    return GalleryTable.TITLE_ENG;
-                case JAPANESE:
-                    return GalleryTable.TITLE_JP;
-            }
-            return "";
+            return switch (type) {
+                case PRETTY -> GalleryTable.TITLE_PRETTY;
+                case ENGLISH -> GalleryTable.TITLE_ENG;
+                case JAPANESE -> GalleryTable.TITLE_JP;
+            };
         }
 
         /**

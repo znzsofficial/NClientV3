@@ -107,7 +107,7 @@ public class CollapsingToolbarLayout extends FrameLayout {
     private static final int DEFAULT_SCRIM_ANIMATION_DURATION = 600;
 
     private boolean mRefreshToolbar = true;
-    private int mToolbarId;
+    private final int mToolbarId;
     private Toolbar mToolbar;
     private View mToolbarDirectChild;
     private View mDummyView;
@@ -552,8 +552,7 @@ public class CollapsingToolbarLayout extends FrameLayout {
 
     private static int getHeightWithMargins(@NonNull final View view) {
         final ViewGroup.LayoutParams lp = view.getLayoutParams();
-        if (lp instanceof MarginLayoutParams) {
-            final MarginLayoutParams mlp = (MarginLayoutParams) lp;
+        if (lp instanceof MarginLayoutParams mlp) {
             return view.getHeight() + mlp.topMargin + mlp.bottomMargin;
         }
         return view.getHeight();
@@ -664,12 +663,7 @@ public class CollapsingToolbarLayout extends FrameLayout {
                     targetAlpha > mScrimAlpha
                             ? AnimationUtils.FAST_OUT_LINEAR_IN_INTERPOLATOR
                             : AnimationUtils.LINEAR_OUT_SLOW_IN_INTERPOLATOR);
-            mScrimAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animator) {
-                    setScrimAlpha((int) animator.getAnimatedValue());
-                }
-            });
+            mScrimAnimator.addUpdateListener(animator -> setScrimAlpha((int) animator.getAnimatedValue()));
         } else if (mScrimAnimator.isRunning()) {
             mScrimAnimator.cancel();
         }

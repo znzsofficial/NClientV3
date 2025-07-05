@@ -359,18 +359,10 @@ public class GalleryDownloaderV2 {
 
     public enum Status {NOT_STARTED, DOWNLOADING, PAUSED, FINISHED, CANCELED}
 
-    public static class PageContainer {
-        public final int page;
-        public final String url, ext;
-
-        public PageContainer(int page, String url, String ext) {
-            this.page = page;
-            this.url = url;
-            this.ext = ext;
-        }
+    public record PageContainer(int page, String url, String ext) {
 
         public String getPageName() {
-            return String.format(Locale.US, "%03d.%s", page, ext);
+                return String.format(Locale.US, "%03d.%s", page, ext);
+            }
         }
-    }
 }
